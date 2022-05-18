@@ -1,5 +1,9 @@
 <template>
-    <div class="row">
+    <div v-if="loading">
+        <app-loader></app-loader>
+    </div>
+
+    <div class="row" v-else>
 
         <div class="col-auto mb-4" v-for="(user, index) in users" :key="index">
             <div class="card" style="width: 14rem;">
@@ -22,10 +26,13 @@
 
 <script>
 import axios from 'axios'
+
 export default {
+
     data() {
         return {
-            users: []
+            users: [],
+            loading: true
         }
     },
     methods: {
@@ -34,8 +41,15 @@ export default {
 
                 this.users = response.data
                 console.log(this.users)
+                this.loading = false
             }).catch(error => {
                 console.log(error)
+                this.$toast.error(
+                    error.message + ",contact ADMIN",
+                    {
+                        position: "bottom",
+                        duration: 2002
+                    })
             })
 
         }
