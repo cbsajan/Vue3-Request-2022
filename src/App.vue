@@ -1,26 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <app-header></app-header>
+  <div class="container">
+    <div>
+      <button type="button" class="btn btn-primary mr-1" @click="active = 'compUser'">Users</button>
+
+      <button type="button" class="btn btn-secondary" @click="active = 'compAddUser'">Add users</button>
+    </div>
+
+    <br />
+
+    <component :is="this.active"></component>
+  </div>
+  <app-footer></app-footer>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import compUser from './components/User/Get-Users.vue';
+import compAddUser from './components/User/AddUser.vue';
 export default {
-  name: 'App',
+  data() {
+    return {
+      active: 'compUser'
+    }
+  },
   components: {
-    HelloWorld
+    compUser,
+    compAddUser
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
